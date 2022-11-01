@@ -125,7 +125,7 @@ train = st.checkbox('Train Kmeans Clustering Model',value=False)
 if train:
     st.header('Select Number of Clusters ')
     cluster = st.slider(' ',min_value=2,max_value=13,value=3,step=(1))
-    st.write(type(cluster))
+   #st.write(type(cluster))
     model = make_pipeline(StandardScaler(),KMeans(n_clusters=cluster))
     model.fit(new_df)
     labels = model.named_steps['kmeans'].labels_
