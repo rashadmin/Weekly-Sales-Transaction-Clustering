@@ -41,10 +41,7 @@ if (len(feature) < option):
     st.stop()
 else:
     dist = st.checkbox('Show Distribution Plots ',value=False)
-    if not dist:
-        heat_variance = st.checkbox('Show Variance and Heatmap Plots ',value=False)
-        
-    else:
+    if dist:
         if option >2:
             col1,col2 = st.columns(2)
             with col1:
@@ -80,6 +77,7 @@ else:
                 plt.ylabel('Values')
                 plt.title(f'A Histogram showing the Distribution of the {feature[1]} Feature')
                 st.pyplot(fig)
+    
 
 
 
@@ -87,8 +85,7 @@ else:
 
 
 
-
-
+heat_variance = st.checkbox('Show Variance and Heatmap Plots ',value=False)
 if heat_variance:
     trimmed = st.checkbox('Trimmed',value=True)
     col1,col2 = st.columns(2)
