@@ -10,7 +10,6 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline,make_pipeline
 from sklearn.metrics import silhouette_score
 from sklearn.decomposition import PCA
-from dash_app import run_simulation
 
 st.title('SALES TRANSACTION CLUSTERING PLAYGROUND')
 df = wrangle('Sales_Transactions_Dataset_Weekly.csv')
