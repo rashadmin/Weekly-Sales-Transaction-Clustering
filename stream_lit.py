@@ -82,9 +82,14 @@ if plot:
 else:
     st.stop()
 
+<<<<<<< HEAD
     
 st.write(' Want to run simulation using dash app ? ')
 run = st.checkbox('Run',value = False)
 if run:
     st.write('OK')
     st.write(run_simulation())
+=======
+st.write('Check the [Source Code](https://github.com/rashadmin/Weekly-Sales-Transaction-Clustering/blob/25a8d877458faca5db482dbc7cc9f354c9076054/stream_lit.py) for the app')
+st.write('Check out the [notebook](https://github.com/rashadmin/Weekly-Sales-Transaction-Clustering/blob/25a8d877458faca5db482dbc7cc9f354c9076054/Sales%20Transaction%20Clustering.ipynb)	')
+>>>>>>> dca301f (Fixed Bugs)
