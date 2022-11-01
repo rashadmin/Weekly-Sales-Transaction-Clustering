@@ -35,45 +35,51 @@ elif option == 'All':
 else:
     feature = st.sidebar.multiselect('Select Features to Cluster',options=col_list,max_selections=option)
 new_df = df[feature]
-dist = st.checkbox('Show Distribution Plots ',value=False)
-if (len(feature) < option) or not dist:
-    heat_variance = st.checkbox('Show Variance and Heatmap Plots ',value=False)
+
+
+if (len(feature) < option):
+    st.stop()
 else:
-    if option >2:
-        col1,col2 = st.columns(2)
-        with col1:
-            feat_1 = st.selectbox('Select Features' , options = feature)
-            fig,ax= plt.subplots()
-            ax = sns.histplot(df[feat_1],color=graph_color)
-            plt.xlabel(f'{feat_1}')
-            plt.ylabel('Values')
-            plt.title(f'A Histogram showing the Distribution of the {feat_1} Feature')
-            st.pyplot(fig)
-        with col2:
-            second_option = df[feature].drop(feat_1,axis=1).columns
-            feat_2 = st.selectbox('Select Features' , options = second_option)
-            fig,ax= plt.subplots()
-            ax = sns.histplot(df[feat_2],color=graph_color)
-            plt.xlabel(f'{feat_2}')
-            plt.ylabel('Values')
-            plt.title(f'A Histogram showing the Distribution of the {feat_2} Feature')
-            st.pyplot(fig)
+    dist = st.checkbox('Show Distribution Plots ',value=False)
+    if not dist:
+        heat_variance = st.checkbox('Show Variance and Heatmap Plots ',value=False)
+        
     else:
-        col1,col2 = st.columns(2)
-        with col1:
-            fig,ax= plt.subplots()
-            ax = sns.histplot(df[feature[0]],color=graph_color)
-            plt.xlabel(f'{feature[0]}')
-            plt.ylabel('Values')
-            plt.title(f'A Histogram showing the Distribution of the {feature[0]} Feature')
-            st.pyplot(fig)
-        with col2:
-            fig,ax= plt.subplots()
-            ax = sns.histplot(df[feature[1]],color=graph_color)
-            plt.xlabel(f'{feature[1]}')
-            plt.ylabel('Values')
-            plt.title(f'A Histogram showing the Distribution of the {feature[1]} Feature')
-            st.pyplot(fig)
+        if option >2:
+            col1,col2 = st.columns(2)
+            with col1:
+                feat_1 = st.selectbox('Select Features' , options = feature)
+                fig,ax= plt.subplots()
+                ax = sns.histplot(df[feat_1],color=graph_color)
+                plt.xlabel(f'{feat_1}')
+                plt.ylabel('Values')
+                plt.title(f'A Histogram showing the Distribution of the {feat_1} Feature')
+                st.pyplot(fig)
+            with col2:
+                second_option = df[feature].drop(feat_1,axis=1).columns
+                feat_2 = st.selectbox('Select Features' , options = second_option)
+                fig,ax= plt.subplots()
+                ax = sns.histplot(df[feat_2],color=graph_color)
+                plt.xlabel(f'{feat_2}')
+                plt.ylabel('Values')
+                plt.title(f'A Histogram showing the Distribution of the {feat_2} Feature')
+                st.pyplot(fig)
+        else:
+            col1,col2 = st.columns(2)
+            with col1:
+                fig,ax= plt.subplots()
+                ax = sns.histplot(df[feature[0]],color=graph_color)
+                plt.xlabel(f'{feature[0]}')
+                plt.ylabel('Values')
+                plt.title(f'A Histogram showing the Distribution of the {feature[0]} Feature')
+                st.pyplot(fig)
+            with col2:
+                fig,ax= plt.subplots()
+                ax = sns.histplot(df[feature[1]],color=graph_color)
+                plt.xlabel(f'{feature[1]}')
+                plt.ylabel('Values')
+                plt.title(f'A Histogram showing the Distribution of the {feature[1]} Feature')
+                st.pyplot(fig)
 
 
 
@@ -118,7 +124,8 @@ if heat_variance:
 train = st.checkbox('Train Kmeans Clustering Model',value=False)
 if train:
     st.header('Select Number of Clusters ')
-    cluster = st.slider(' ',min_value=2,max_value=13,value=3)
+    cluster = st.slider(' ',min_value=2,max_value=13,value=3,step=(1))
+    st.write(type(cluster))
     model = make_pipeline(StandardScaler(),KMeans(n_clusters=cluster))
     model.fit(new_df)
     labels = model.named_steps['kmeans'].labels_
